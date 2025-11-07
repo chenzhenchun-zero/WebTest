@@ -405,42 +405,179 @@ const marioGame = (() => {
   }
 
   function drawBackground() {
-    ctx.fillStyle = '#5ec5ff';
+    const skyGradient = ctx.createLinearGradient(0, 0, 0, height);
+    skyGradient.addColorStop(0, '#fff9c4');
+    skyGradient.addColorStop(0.5, '#ffe0b2');
+    skyGradient.addColorStop(1, '#ffd6f6');
+    ctx.fillStyle = skyGradient;
     ctx.fillRect(0, 0, width, height);
 
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+    ctx.fillStyle = 'rgba(255, 239, 130, 0.6)';
+    ctx.beginPath();
+    ctx.arc(width * 0.15, height * 0.22, 60, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+    ctx.beginPath();
+    ctx.arc(width * 0.15, height * 0.22, 42, 0, Math.PI * 2);
+    ctx.fill();
+
     clouds.forEach((cloud) => {
+      const boneLength = Math.max(70, cloud.width * 0.55);
+      const boneRadius = Math.max(14, cloud.height * 0.45);
+
+      ctx.save();
+      ctx.translate(cloud.x, cloud.y);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
       ctx.beginPath();
-      ctx.ellipse(cloud.x, cloud.y, cloud.width * 0.35, cloud.height * 0.5, 0, 0, Math.PI * 2);
-      ctx.ellipse(cloud.x + cloud.width * 0.3, cloud.y + 6, cloud.width * 0.4, cloud.height * 0.55, 0, 0, Math.PI * 2);
-      ctx.ellipse(cloud.x + cloud.width * 0.65, cloud.y, cloud.width * 0.33, cloud.height * 0.45, 0, 0, Math.PI * 2);
+      ctx.arc(-boneLength / 2, -boneRadius * 0.6, boneRadius, 0, Math.PI * 2);
+      ctx.arc(-boneLength / 2, boneRadius * 0.6, boneRadius, 0, Math.PI * 2);
+      ctx.arc(boneLength / 2, -boneRadius * 0.6, boneRadius, 0, Math.PI * 2);
+      ctx.arc(boneLength / 2, boneRadius * 0.6, boneRadius, 0, Math.PI * 2);
       ctx.fill();
+      ctx.fillRect(-boneLength / 2, -boneRadius * 0.6, boneLength, boneRadius * 1.2);
+      ctx.fillStyle = 'rgba(255, 183, 77, 0.35)';
+      ctx.fillRect(-boneLength / 2, -boneRadius * 0.18, boneLength, boneRadius * 0.36);
+      ctx.restore();
     });
 
-    const hillHeight = 90;
-    const offset = sceneryOffset % (width * 2);
-    ctx.fillStyle = '#a1d86a';
-    for (let i = -1; i <= 3; i += 1) {
-      const hillX = ((i * width) - offset * 0.6) % (width * 2);
+    ctx.fillStyle = '#ffe082';
+    ctx.fillRect(0, groundY, width, height - groundY);
+
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+    const waveOffset = sceneryOffset * 0.3;
+    for (let i = -2; i < width / 50 + 4; i += 1) {
+      const x = ((i * 50) - (waveOffset % 50));
       ctx.beginPath();
-      ctx.moveTo(hillX, groundY);
-      ctx.quadraticCurveTo(hillX + width * 0.25, groundY - hillHeight, hillX + width * 0.5, groundY);
-      ctx.quadraticCurveTo(hillX + width * 0.75, groundY - hillHeight, hillX + width, groundY);
-      ctx.lineTo(hillX + width, height);
-      ctx.lineTo(hillX, height);
-      ctx.closePath();
+      ctx.ellipse(x, groundY + 18, 40, 12, 0, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    ctx.fillStyle = '#4caf50';
-    ctx.fillRect(0, groundY, width, height - groundY);
+    ctx.fillStyle = 'rgba(255, 171, 145, 0.35)';
+    const pawSpacing = 140;
+    for (let i = -2; i < width / pawSpacing + 3; i += 1) {
+      const x = ((i * pawSpacing) - (sceneryOffset * 0.4 % pawSpacing)) + 30;
+      const y = groundY + 26;
+      ctx.beginPath();
+      ctx.ellipse(x, y, 16, 12, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(x - 14, y - 16, 6, 8, 0, 0, Math.PI * 2);
+      ctx.ellipse(x, y - 18, 6, 8, 0, 0, Math.PI * 2);
+      ctx.ellipse(x + 14, y - 16, 6, 8, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
-    ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+    const dogX = width * 0.68;
+    const dogY = groundY - 10;
+    ctx.save();
+    ctx.translate(dogX, dogY);
+
+    ctx.strokeStyle = '#ffcc80';
+    ctx.lineWidth = 12;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(-78, -62);
+    ctx.quadraticCurveTo(-110, -88, -80, -120);
+    ctx.stroke();
+    ctx.strokeStyle = '#fff9c4';
+    ctx.lineWidth = 7;
+    ctx.beginPath();
+    ctx.moveTo(-72, -80);
+    ctx.quadraticCurveTo(-92, -100, -74, -118);
+    ctx.stroke();
+
+    ctx.fillStyle = '#fff3d1';
+    ctx.beginPath();
+    ctx.ellipse(-4, -44, 88, 44, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffcc80';
+    ctx.beginPath();
+    ctx.ellipse(-12, -44, 30, 22, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#fff9db';
+    [
+      { x: -36, width: 24 },
+      { x: -8, width: 24 },
+      { x: 20, width: 24 },
+      { x: 48, width: 24 },
+    ].forEach((leg) => {
+      const legTop = -14;
+      const legHeight = 36;
+      const radius = 10;
+      ctx.beginPath();
+      if (typeof ctx.roundRect === 'function') {
+        ctx.roundRect(leg.x, legTop, leg.width, legHeight, radius);
+      } else {
+        ctx.moveTo(leg.x + radius, legTop);
+        ctx.lineTo(leg.x + leg.width - radius, legTop);
+        ctx.quadraticCurveTo(leg.x + leg.width, legTop, leg.x + leg.width, legTop + radius);
+        ctx.lineTo(leg.x + leg.width, legTop + legHeight - radius);
+        ctx.quadraticCurveTo(
+          leg.x + leg.width,
+          legTop + legHeight,
+          leg.x + leg.width - radius,
+          legTop + legHeight,
+        );
+        ctx.lineTo(leg.x + radius, legTop + legHeight);
+        ctx.quadraticCurveTo(leg.x, legTop + legHeight, leg.x, legTop + legHeight - radius);
+        ctx.lineTo(leg.x, legTop + radius);
+        ctx.quadraticCurveTo(leg.x, legTop, leg.x + radius, legTop);
+        ctx.closePath();
+      }
+      ctx.fill();
+      ctx.fillStyle = '#ffccbc';
+      ctx.beginPath();
+      ctx.ellipse(leg.x + leg.width / 2, 20, 14, 6, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#fff9db';
+    });
+
+    ctx.fillStyle = '#ff5252';
+    ctx.fillRect(42, -86, 60, 12);
+    ctx.fillStyle = '#ffcc80';
+    ctx.beginPath();
+    ctx.arc(46, -80, 8, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#fff9db';
+    ctx.beginPath();
+    ctx.ellipse(82, -92, 38, 32, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffab91';
+    ctx.beginPath();
+    ctx.ellipse(64, -96, 16, 24, -0.6, 0, Math.PI * 2);
+    ctx.ellipse(102, -96, 16, 24, 0.6, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#3e2723';
+    ctx.beginPath();
+    ctx.arc(70, -82, 4, 0, Math.PI * 2);
+    ctx.arc(94, -82, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#5d4037';
+    ctx.beginPath();
+    ctx.arc(82, -70, 6, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = '#ff6f61';
+    ctx.beginPath();
+    ctx.moveTo(82, -64);
+    ctx.quadraticCurveTo(94, -50, 82, -42);
+    ctx.quadraticCurveTo(70, -50, 82, -64);
+    ctx.fill();
+
+    ctx.strokeStyle = '#5d4037';
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(0, groundY - 8);
-    ctx.lineTo(width, groundY - 8);
+    ctx.moveTo(72, -74);
+    ctx.quadraticCurveTo(82, -68, 92, -74);
     ctx.stroke();
+
+    ctx.restore();
   }
 
   function drawObstacles() {
