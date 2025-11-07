@@ -15,7 +15,9 @@
 body {
   margin: 0;
   font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top, #303134, #171717 45%);
+  background: radial-gradient(circle at top, rgba(48, 49, 52, 0.85), rgba(23, 23, 23, 0.9) 45%),
+              url("data:image/svg+xml,%3Csvg width='180' height='180' xmlns='http://www.w3.org/2000/svg'%3E%3Cg opacity='0.3'%3E%3C!-- Cat face --%3E%3Ccircle cx='90' cy='90' r='40' fill='%23999'/%3E%3C!-- Left ear --%3E%3Cpath d='M 65 65 L 50 40 L 70 55 Z' fill='%23999'/%3E%3Cpath d='M 62 60 L 56 48 L 68 58 Z' fill='%23ff69b4'/%3E%3C!-- Right ear --%3E%3Cpath d='M 115 65 L 130 40 L 110 55 Z' fill='%23999'/%3E%3Cpath d='M 118 60 L 124 48 L 112 58 Z' fill='%23ff69b4'/%3E%3C!-- Eyes --%3E%3Cellipse cx='77' cy='85' rx='7' ry='11' fill='%23fff'/%3E%3Cellipse cx='103' cy='85' rx='7' ry='11' fill='%23fff'/%3E%3Ccircle cx='77' cy='87' r='4' fill='%2300d4ff'/%3E%3Ccircle cx='103' cy='87' r='4' fill='%2300d4ff'/%3E%3C!-- Shine in eyes --%3E%3Ccircle cx='79' cy='85' r='2' fill='%23fff'/%3E%3Ccircle cx='105' cy='85' r='2' fill='%23fff'/%3E%3C!-- Nose --%3E%3Cpath d='M 90 95 L 85 100 L 95 100 Z' fill='%23ff69b4'/%3E%3C!-- Mouth --%3E%3Cpath d='M 90 100 Q 80 105 75 102 M 90 100 Q 100 105 105 102' stroke='%23666' stroke-width='2' fill='none'/%3E%3C!-- Whiskers --%3E%3Cline x1='45' y1='90' x2='65' y2='88' stroke='%23666' stroke-width='1.5'/%3E%3Cline x1='45' y1='95' x2='65' y2='95' stroke='%23666' stroke-width='1.5'/%3E%3Cline x1='45' y1='100' x2='65' y2='98' stroke='%23666' stroke-width='1.5'/%3E%3Cline x1='135' y1='90' x2='115' y2='88' stroke='%23666' stroke-width='1.5'/%3E%3Cline x1='135' y1='95' x2='115' y2='95' stroke='%23666' stroke-width='1.5'/%3E%3Cline x1='135' y1='100' x2='115' y2='98' stroke='%23666' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: auto, 180px 180px;
   color: var(--text-color);
   min-height: 100vh;
   display: flex;
