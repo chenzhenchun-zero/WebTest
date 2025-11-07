@@ -58,8 +58,18 @@
         <h2>像马里奥的小游戏</h2>
         <button class="game-close" type="button" aria-label="关闭游戏">✕</button>
       </div>
+      <div class="game-toolbar" role="group" aria-label="小游戏控制">
+        <div class="game-score" aria-live="polite">分数：0</div>
+        <button class="game-start" type="button">开始游戏</button>
+      </div>
       <canvas id="mario-canvas" width="640" height="360" role="img" aria-label="平台跳跃游戏画面"></canvas>
-      <p class="game-instructions">使用方向键 ← → 移动，空格键或 ↑ 跳跃，R 键重新开始。</p>
+      <p class="game-status" role="status" aria-live="polite"></p>
+      <div class="touch-controls" aria-hidden="true">
+        <button class="touch-btn left" type="button" aria-label="向左移动">←</button>
+        <button class="touch-btn jump" type="button" aria-label="跳跃">⤒</button>
+        <button class="touch-btn right" type="button" aria-label="向右移动">→</button>
+      </div>
+      <p class="game-instructions">使用方向键或触摸按钮移动，空格键/↑/⤒ 跳跃，R 键或“开始游戏”重新开始，收集金币并躲避管道。</p>
     </div>
   </div>
 
